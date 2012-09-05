@@ -857,13 +857,7 @@ Element.implement({
 [Element, Window, Document].invoke('implement', {
 
 	addListener: function(type, fn){
-		if (type == 'unload'){
-			var old = fn, self = this;
-			old.$ref = fn = function(){
-				self.removeListener('unload', fn);
-				old();
-			};
-		} else if (window.attachEvent && !window.addEventListener){
+		if (window.attachEvent && !window.addEventListener){
 			collected[Slick.uidOf(this)] = this;
 		}
 		if (this.addEventListener) this.addEventListener(type, fn, !!arguments[2]);
@@ -872,11 +866,6 @@ Element.implement({
 	},
 
 	removeListener: function(type, fn){
-		if (type == 'unload' && fn.$ref){
-			var old = fn;
-			fn = fn.$ref;
-			delete old.$ref;
-		}
 		if (this.removeEventListener) this.removeEventListener(type, fn, !!arguments[2]);
 		else this.detachEvent('on' + type, fn);
 		return this;
@@ -903,10 +892,14 @@ Element.implement({
 });
 
 /*<ltIE9>*/
-if (window.attachEvent && !window.addEventListener) window.addListener('unload', function(){
-	Object.each(collected, clean);
-	if (window.CollectGarbage) CollectGarbage();
-});
+if (window.attachEvent && !window.addEventListener){
+	var gc = function(){
+		Object.each(collected, clean);
+		if (window.CollectGarbage) CollectGarbage();
+		window.removeListener('unload', gc);
+	}
+	window.addListener('unload', gc);
+}
 /*</ltIE9>*/
 
 Element.Properties = {};
