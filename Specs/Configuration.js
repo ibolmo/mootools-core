@@ -93,6 +93,7 @@ Configuration.sets = {
 	'core-1.4-base': {
 		path: '1.4base/',
 		files: [
+			'Core/Core',
 			'Types/Array'
 		]
 	},
@@ -125,7 +126,7 @@ Configuration.sets = {
 			'Types/Function',
 			'Types/Number',
 			'Types/String',
-			'Types/Object',
+			'Types/Object'
 		]
 	},
 
