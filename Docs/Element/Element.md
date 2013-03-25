@@ -794,7 +794,7 @@ Removes the Element from the DOM.
 
 ### See Also:
 
-- [MDC Element:removeChild][]
+- [MDN Element:removeChild][]
 
 
 
@@ -870,7 +870,7 @@ Replaces the passed Element with Element.
 
 ### See Also:
 
-- [MDC Element:replaceChild][]
+- [MDN Element:replaceChild][]
 
 
 
