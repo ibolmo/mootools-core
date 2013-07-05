@@ -90,6 +90,16 @@ var floatName = (html.style.cssFloat == null) ? 'styleFloat' : 'cssFloat',
 	namedPositions = {left: '0%', top: '0%', center: '50%', right: '100%', bottom: '100%'},
 	hasBackgroundPositionXY = (html.style.backgroundPositionX != null);
 
+//<ltIE9>
+var removeStyle = function(style, property){
+	if (property == 'backgroundPosition'){
+		style.removeAttribute(property + 'X');
+		property += 'Y';
+	}
+	style.removeAttribute(property);
+};
+//</ltIE9>
+
 Element.implement({
 
 	getComputedStyle: function(property){
@@ -118,7 +128,7 @@ Element.implement({
 		this.style[property] = value;
 		//<ltIE9>
 		if ((value == '' || value == null) && doesNotRemoveStyles && this.style.removeAttribute){
-			this.style.removeAttribute(property);
+			removeStyle(this.style, property);
 		}
 		//</ltIE9>
 		return this;
