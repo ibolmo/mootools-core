@@ -108,6 +108,7 @@ Configuration.sets = {
 	'core-1.4-client': {
 		path: '1.4client/',
 		files: [
+			'Browser/Browser',
 			'Element/Element',
 			'Element/Element.Event',
 			'Element/Element.Style',
