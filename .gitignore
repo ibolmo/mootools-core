@@ -4,3 +4,5 @@ mootools-core.esproj
 mootools-core-mobile.js
 *~
 node_modules
+mootools-all.js
+mootools-nocompat.js
