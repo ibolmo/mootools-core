@@ -6,6 +6,8 @@ License:
 	MIT-style license.
 */
 
+//<1.2compat>
+
 (function(){
 
 var hash2 = new Hash({ a: 'string', b: 233, c: {} });
@@ -201,3 +203,5 @@ describe("Hash Methods", {
 });
 
 })();
+
+//</1.2compat>
