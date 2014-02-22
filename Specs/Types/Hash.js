@@ -1,10 +1,11 @@
 /*
-Script: Hash.js
-	Specs for Hash.js
-
-License:
-	MIT-style license.
+---
+name: Hash
+requires: ~
+provides: ~
+...
 */
+
 
 //<1.2compat>
 

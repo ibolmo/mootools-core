@@ -1,9 +1,8 @@
 /*
 ---
-name: DomReady Specs
-description: n/a
-requires: [Core/DomReady]
-provides: [DomReady.Specs]
+name: DomReady
+requires: ~
+provides: ~
 ...
 */
 document.addListener = function(type, fn){

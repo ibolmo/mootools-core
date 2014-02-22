@@ -1,9 +1,9 @@
 /*
-Script: Element.Dimensions.js
-	Specs for Element.Dimensions.js
-
-License:
-	MIT-style license.
+---
+name: Element.Dimensions
+requires: ~
+provides: ~
+...
 */
 
 describe('Element.Dimensions', function(){

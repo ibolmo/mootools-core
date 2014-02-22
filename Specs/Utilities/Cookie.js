@@ -1,9 +1,8 @@
 /*
 ---
-name: Cookie Specs
-description: n/a
-requires: [Core/Cookie]
-provides: [Cookie.Specs]
+name: Cookie
+requires: ~
+provides: ~
 ...
 */
 

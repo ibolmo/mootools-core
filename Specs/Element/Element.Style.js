@@ -1,9 +1,8 @@
 /*
 ---
-name: Element.Style Specs
-description: n/a
-requires: [Core/Element.Style]
-provides: [Element.Style.Specs]
+name: Element.Style
+requires: ~
+provides: ~
 ...
 */
 

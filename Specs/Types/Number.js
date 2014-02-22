@@ -1,9 +1,9 @@
 /*
-Script: Number.js
-	Specs for Number.js
-
-License:
-	MIT-style license.
+---
+name: Number
+requires: ~
+provides: ~
+...
 */
 
 describe("Number Methods", {

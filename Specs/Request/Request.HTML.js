@@ -1,9 +1,8 @@
 /*
 ---
-name: Request.HTML Specs
-description: n/a
-requires: [Core/Request.HTML]
-provides: [Request.HTML.Specs]
+name: Request.HTML
+requires: ~
+provides: ~
 ...
 */
 describe('Request.HTML', function(){

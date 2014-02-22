@@ -1,9 +1,8 @@
 /*
 ---
-name: NewElement Specs
-description: n/a
-requires: [Core/Element]
-provides: [NewElement.Specs]
+name: NewElement
+requires: ~
+provides: ~
 ...
 */
 

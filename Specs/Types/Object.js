@@ -1,11 +1,11 @@
 /*
 ---
-name: Object Specs
-description: n/a
-requires: [Core/Object]
-provides: [Object.Specs]
+name: Object
+requires: ~
+provides: ~
 ...
 */
+
 (function(){
 
 var object = { a: 'string', b: 233, c: {} };

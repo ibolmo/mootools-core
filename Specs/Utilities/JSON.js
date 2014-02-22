@@ -1,11 +1,11 @@
 /*
 ---
-name: JSON Specs
-description: n/a
-requires: [Core/JSON]
-provides: [JSON.Specs]
+name: JSON
+requires: ~
+provides: ~
 ...
 */
+
 describe('JSON', function(){
 
 	it('should encode and decode an object', function(){

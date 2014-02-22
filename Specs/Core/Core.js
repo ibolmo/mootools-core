@@ -1,9 +1,8 @@
 /*
 ---
-name: Core Specs
-description: n/a
-requires: [Core/Core]
-provides: [Core.Specs]
+name: Core
+requires: ~
+provides: ~
 ...
 */
 

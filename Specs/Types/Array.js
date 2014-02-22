@@ -1,11 +1,11 @@
 /*
 ---
-name: Array Specs
-description: n/a
-requires: [Core/Array]
-provides: [Array.Specs]
+name: Array
+requires: ~
+provides: ~
 ...
 */
+
 (function(){
 
 var getTestArray = function(){
