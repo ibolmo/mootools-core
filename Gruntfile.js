@@ -81,7 +81,15 @@ module.exports = function(grunt) {
 					username: process.env.SAUCE_USERNAME,
 					accessKey: process.env.SAUCE_ACCESS_KEY,
 					testName: 'MooTools-Core'
-				},
+				}
+			},
+
+			continuous: {
+				browsers: ['PhantomJS']
+			},
+
+			sauce1: {
+				port: 9876,
 				customLaunchers: {
 					chrome_linux: {
 						base: 'SauceLabs',
@@ -98,7 +106,18 @@ module.exports = function(grunt) {
 						browserName: 'opera',
 						platform: 'Windows 2008',
 						version: '12'
-					},
+					}
+				},
+				browsers: [
+					'chrome_linux',
+					'firefox_linux',
+					'opera_win2000'
+				]
+			},
+
+			sauce2: {
+				port: 9877,
+				customLaunchers: {
 					safari7: {
 						base: 'SauceLabs',
 						browserName: 'safari',
@@ -116,7 +135,19 @@ module.exports = function(grunt) {
 						browserName: 'safari',
 						version: '5',
 						platform: 'OS X 10.6'
-					},
+					}
+				},
+				browsers: [
+					'safari7',
+					'safari6',
+					'safari5_osx10_6'
+				],
+			},
+
+			// safari5_win7, ie11 and ie10 are not loading the test page
+			sauce3: {
+				port: 9999,
+				customLaunchers: {
 					safari5_win7: {
 						base: 'SauceLabs',
 						browserName: 'safari',
@@ -134,7 +165,19 @@ module.exports = function(grunt) {
 						browserName: 'internet explorer',
 						platform: 'Windows 8',
 						version: '10'
-					},
+					}
+				},
+				browsers: [
+					'safari5_win7',
+					'ie11',
+					'ie10'
+				]
+			},
+
+			// ie9, ie8, and ie7 are not loading the test page
+			sauce4: {
+				port: 3000,
+				customLaunchers: {
 					ie9: {
 						base: 'SauceLabs',
 						browserName: 'internet explorer',
@@ -152,7 +195,18 @@ module.exports = function(grunt) {
 						browserName: 'internet explorer',
 						platform: 'Windows XP',
 						version: '7'
-					},
+					}
+				},
+				browsers: [
+					'ie9',
+					'ie8',
+					'ie7'
+				]
+			},
+
+			sauce5: {
+			 port: 9876,
+			 customLaunchers: {
 					ie6: {
 						base: 'SauceLabs',
 						browserName: 'internet explorer',
@@ -172,7 +226,18 @@ module.exports = function(grunt) {
 						platform: 'OS X 10.8',
 						version: '6.1',
 						deviceOrientation: 'portrait'
-					},
+					}
+			 },
+			 browsers: [
+			     'ie6',
+			     'iphone_7',
+			     'iphone_6_1',
+			 ]
+			},
+
+			sauce6: {
+			 port: 9805,
+			 customLaunchers: {
 					iphone_6: {
 						base: 'SauceLabs',
 						browserName: 'iphone',
@@ -180,67 +245,11 @@ module.exports = function(grunt) {
 						version: '6',
 						deviceOrientation: 'portrait'
 					}
-				},
+			 },
+			 browsers: [
+			     'iphone_6'
+			 ]
 			},
-
-			continuous: {
-				browsers: ['PhantomJS']
-			},
-
-			sauce1: {
-				port: 9876,
-				browsers: [
-					'chrome_linux', 
-					'firefox_linux', 
-					'opera_win2000'
-				]
-			},
-
-			sauce2: {
-				port: 9877,
-				browsers: [
-					'safari7',
-					'safari6',
-					'safari5_osx10_6'
-				],
-			},
-
-			// safari5_win7, ie11 and ie10 are not loading the test page
-			sauce3: {
-				port: 9999,
-				browsers: [
-					'safari5_win7',
-					'ie11',
-					'ie10'
-				]
-			},
-
-			// ie9, ie8, and ie7 are not loading the test page
-			sauce4: {
-				port: 3000,
-				browsers: [
-					'ie9',
-					'ie8',
-					'ie7'
-				]
-			},
-
-			// ie6 is not loading the test page
-			// sauce5: {
-			//  port: 9876,
-			//  browsers: [
-			//      'ie6',
-			//      'iphone_7',
-			//      'iphone_6_1',
-			//  ]
-			// },
-
-			// sauce6: {
-			//  port: 9805,
-			//  browsers: [
-			//      'iphone_6'
-			//  ]
-			// },
 
 			dev: {
 				singleRun: false,
