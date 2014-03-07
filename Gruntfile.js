@@ -1,5 +1,7 @@
 "use strict";
 
+var MAX_PARALLEL = 3;
+
 module.exports = function(grunt) {
 
 	require('load-grunt-tasks')(grunt);
@@ -76,7 +78,12 @@ module.exports = function(grunt) {
 				captureTimeout: 60000 * 2,
 				singleRun: true,
 				frameworks: ['jasmine', 'sinon'],
-				files: ['Tests/Utilities/*.js', 'mootools-*.js']
+				files: ['Tests/Utilities/*.js', 'mootools-*.js'],
+				sauceLabs: {
+					username: process.env.SAUCE_USERNAME,
+					accessKey: process.env.SAUCE_ACCESS_KEY,
+					testName: 'MooTools-Core'
+				}
 			},
 
 			continuous: {
@@ -106,29 +113,36 @@ module.exports = function(grunt) {
 
 		grunt.task.run(['clean', 'packager:all', 'packager:specs']);
 
-		grunt.config.set('karma.options', {
-			sauceLabs: {
-				username: process.env.SAUCE_USERNAME,
-				accessKey: process.env.SAUCE_ACCESS_KEY,
-				testName: 'MooTools-Core'
-			}
-		});
-
 		var browsers = {
 			chrome_linux:  { browserName: 'chrome', platform: 'linux' },
 			firefox_linux: { browserName: 'firefox', platform: 'linux' },
 			opera_win2000: { browserName: 'opera', platform: 'Windows 2008', version: '12'}
 		};
 
-		for (var i in browsers) browers[i].base = 'SauceLabs';
+		var set = [];
+		for (var i in browsers){
+			browsers[i].base = 'SauceLabs';
+			set.push([i, browsers[i]]);
+		}
 
-		grunt.config.set('karma.sauce', {
-			port: 9876,
-			customLaunchers: browsers,
-			browsers: Object.keys(browsers)
-		});
+		var nset = [];
+		while (set.length) nset.push(set.splice(0, MAX_PARALLEL))
 
-		grunt.task.run(['karma:sauce'])
+		grunt.task.run(nset.map(function(set, i){
+			var browsers = {};
+			set.forEach(function(bits){
+				browsers[bits[0]] = bits[1];
+			});
+
+			grunt.config.set('karma.sauce' + i, {
+				port: 9876,
+				customLaunchers: browsers,
+				browsers: Object.keys(browsers),
+				reporters: 'saucelabs'
+			});
+
+			return 'karma:sauce' + i;
+		}));
 	});
 
 };
