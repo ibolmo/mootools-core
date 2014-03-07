@@ -76,179 +76,11 @@ module.exports = function(grunt) {
 				captureTimeout: 60000 * 2,
 				singleRun: true,
 				frameworks: ['jasmine', 'sinon'],
-				files: ['Tests/Utilities/*.js', 'mootools-*.js'],
-				sauceLabs: {
-					username: process.env.SAUCE_USERNAME,
-					accessKey: process.env.SAUCE_ACCESS_KEY,
-					testName: 'MooTools-Core'
-				}
+				files: ['Tests/Utilities/*.js', 'mootools-*.js']
 			},
 
 			continuous: {
 				browsers: ['PhantomJS']
-			},
-
-			sauce1: {
-				port: 9876,
-				customLaunchers: {
-					chrome_linux: {
-						base: 'SauceLabs',
-						browserName: 'chrome',
-						platform: 'linux'
-					},
-					firefox_linux: {
-						base: 'SauceLabs',
-						browserName: 'firefox',
-						platform: 'linux'
-					},
-					opera_win2000: {
-						base: 'SauceLabs',
-						browserName: 'opera',
-						platform: 'Windows 2008',
-						version: '12'
-					}
-				},
-				browsers: [
-					'chrome_linux',
-					'firefox_linux',
-					'opera_win2000'
-				]
-			},
-
-			sauce2: {
-				port: 9877,
-				customLaunchers: {
-					safari7: {
-						base: 'SauceLabs',
-						browserName: 'safari',
-						platform: 'OS X 10.9',
-						version: '7'
-					},
-					safari6: {
-						base: 'SauceLabs',
-						browserName: 'safari',
-						platform: 'OS X 10.8',
-						version: '6'
-					},
-					safari5_osx10_6: {
-						base: 'SauceLabs',
-						browserName: 'safari',
-						version: '5',
-						platform: 'OS X 10.6'
-					}
-				},
-				browsers: [
-					'safari7',
-					'safari6',
-					'safari5_osx10_6'
-				],
-			},
-
-			// safari5_win7, ie11 and ie10 are not loading the test page
-			sauce3: {
-				port: 9999,
-				customLaunchers: {
-					safari5_win7: {
-						base: 'SauceLabs',
-						browserName: 'safari',
-						version: '5',
-						platform: 'Windows 7'
-					},
-					ie11: {
-						base: 'SauceLabs',
-						browserName: 'internet explorer',
-						platform: 'Windows 8.1',
-						version: '11'
-					},
-					ie10: {
-						base: 'SauceLabs',
-						browserName: 'internet explorer',
-						platform: 'Windows 8',
-						version: '10'
-					}
-				},
-				browsers: [
-					'safari5_win7',
-					'ie11',
-					'ie10'
-				]
-			},
-
-			// ie9, ie8, and ie7 are not loading the test page
-			sauce4: {
-				port: 3000,
-				customLaunchers: {
-					ie9: {
-						base: 'SauceLabs',
-						browserName: 'internet explorer',
-						platform: 'Windows 7',
-						version: '9'
-					},
-					ie8: {
-						base: 'SauceLabs',
-						browserName: 'internet explorer',
-						platform: 'Windows 7',
-						version: '8'
-					},
-					ie7: {
-						base: 'SauceLabs',
-						browserName: 'internet explorer',
-						platform: 'Windows XP',
-						version: '7'
-					}
-				},
-				browsers: [
-					'ie9',
-					'ie8',
-					'ie7'
-				]
-			},
-
-			sauce5: {
-			 port: 9876,
-			 customLaunchers: {
-					ie6: {
-						base: 'SauceLabs',
-						browserName: 'internet explorer',
-						platform: 'Windows XP',
-						version: '6'
-					},
-					iphone_7: {
-						base: 'SauceLabs',
-						browserName: 'iphone',
-						platform: 'OS X 10.9',
-						version: '7',
-						deviceOrientation: 'portrait'
-					},
-					iphone_6_1: {
-						base: 'SauceLabs',
-						browserName: 'iphone',
-						platform: 'OS X 10.8',
-						version: '6.1',
-						deviceOrientation: 'portrait'
-					}
-			 },
-			 browsers: [
-			     'ie6',
-			     'iphone_7',
-			     'iphone_6_1',
-			 ]
-			},
-
-			sauce6: {
-			 port: 9805,
-			 customLaunchers: {
-					iphone_6: {
-						base: 'SauceLabs',
-						browserName: 'iphone',
-						platform: 'OS X 10.8',
-						version: '6',
-						deviceOrientation: 'portrait'
-					}
-			 },
-			 browsers: [
-			     'iphone_6'
-			 ]
 			},
 
 			dev: {
@@ -269,15 +101,34 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', ['clean', 'packager:all', 'packager:specs', 'karma:continuous']);
 	grunt.registerTask('nocompat', ['clean', 'packager:nocompat', 'packager:specs-nocompat', 'karma:continuous']);
-	grunt.registerTask('default:travis', [
-		'clean',
-		'packager:all',
-		'packager:specs',
-		'karma:sauce1',
-		'karma:sauce2',
-		'karma:sauce3',
-		'karma:sauce4'
-		// 'karma:sauce5',
-		// 'karma:sauce6'
-	])
+
+	grunt.registerTask('sauce', 'Launch specs against SauceLabs™ VMs', function(){
+
+		grunt.task.run(['clean', 'packager:all', 'packager:specs']);
+
+		grunt.config.set('karma.options', {
+			sauceLabs: {
+				username: process.env.SAUCE_USERNAME,
+				accessKey: process.env.SAUCE_ACCESS_KEY,
+				testName: 'MooTools-Core'
+			}
+		});
+
+		var browsers = {
+			chrome_linux:  { browserName: 'chrome', platform: 'linux' },
+			firefox_linux: { browserName: 'firefox', platform: 'linux' },
+			opera_win2000: { browserName: 'opera', platform: 'Windows 2008', version: '12'}
+		};
+
+		for (var i in browsers) browers[i].base = 'SauceLabs';
+
+		grunt.config.set('karma.sauce', {
+			port: 9876,
+			customLaunchers: browsers,
+			browsers: Object.keys(browsers)
+		});
+
+		grunt.task.run(['karma:sauce'])
+	});
+
 };
